@@ -1,3 +1,4 @@
+#' @export
 docr.list_named <- function(L){
 
   list_body <- lapply(names(L), function(i){

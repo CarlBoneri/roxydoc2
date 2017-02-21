@@ -1,6 +1,6 @@
 #' Move all docr files into the working projects revdep folder
 #'
-#'
+#' @export
 docr.freetype <- function(file_name = NULL, assign_as = NULL){
 
   raw <- readline(prompt = ":")

@@ -17,6 +17,8 @@ A formatted roxygen string
 }
 \examples{
 
+
+
 }
 \author{
 Carl S.A. Boneri, \email{carl.boneri@whyles.com}

@@ -4,10 +4,20 @@
 \alias{docr.clean_fun}
 \title{Build a clean and set-formatted function}
 \usage{
-docr.clean_fun(fun_name = NULL)
+docr.clean_fun(fun_name = NULL, trim_blanks = FALSE, rm_comments = FALSE,
+  do_cat = TRUE)
 }
 \arguments{
 \item{fun_name}{The name of the function to be rebuilt}
+
+\item{trim_blanks}{Should any carriage returns or empty lines be removed from
+the source code.}
+
+\item{rm_comments}{Should the comments in the source script of the function
+be removed.}
+
+\item{do_cat}{Should the output be printed to the console by calling
+\code{\link{cat}}.}
 }
 \value{
 The structured function.

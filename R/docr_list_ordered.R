@@ -1,3 +1,4 @@
+#' @export
 docr.list_ordered <- function(L){
   slots <- unlist(lapply(1:length(L),function(i){
     sprintf("#'   \\item %s", L[[i]])

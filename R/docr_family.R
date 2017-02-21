@@ -14,6 +14,9 @@
 #'
 #' @examples
 #'
+#'
+#'
+#' @export
 docr.family <- function(family_name = NULL){
   docr.wrap(
     paste0(c("@family",family_name, "functions"),

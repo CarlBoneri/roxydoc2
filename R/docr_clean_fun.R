@@ -12,6 +12,14 @@
 #'
 #' @param fun_name The name of the function to be rebuilt
 #'
+#' @param trim_blanks Should any carriage returns or empty lines be removed from
+#'  the source code.
+#'
+#' @param rm_comments Should the comments in the source script of the function
+#'  be removed.
+#'
+#' @param do_cat Should the output be printed to the console by calling
+#'  \code{\link{cat}}.
 #'
 #' @family Documentation functions
 #'
@@ -49,14 +57,22 @@
 #'
 #' @export
 #' @importFrom htmltools HTML
-docr.clean_fun <- function(fun_name = NULL){
-  tmp_fun_name <- fun_name
-  FUN <- HTML(
-    paste0(tmp_fun_name," <- ",
-           HTML(
-             paste0(deparse(get(fun_name),
-                            control="all"),
-                    collapse="\n"))
-    ))
-  return(FUN)
+docr.clean_fun <- function(fun_name = NULL, trim_blanks = FALSE,
+                           rm_comments = FALSE, do_cat = TRUE){
+  deparse(get(fun_name), control = "all") %>% (function(x){
+    x[[1]] <- sprintf("%s <- %s",fun_name, x[[1]])
+
+    if(trim_blanks){
+      x <- x[nchar(x) > 0]
+    }
+
+    if(rm_comments){
+      x <- grep("^[[:space:]]{1,}\\#", x, invert = TRUE, value = TRUE)
+    }
+    if(do_cat){
+      cat(x, sep = "\n")
+    }else {
+      x
+    }
+  })
 }
