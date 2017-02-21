@@ -8,7 +8,7 @@ docr.list_named <- function(L){
     var_title <- sprintf("#'   \\item{%s}", i)
 
     paste0(var_title,
-           sprintf("{%s\n#'    }",
+           sprintf("{%s}",
                    paste0(var_body,
                           collapse = "\n#'")
            )

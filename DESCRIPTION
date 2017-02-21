@@ -17,3 +17,6 @@ Imports: plyr,
     stringi,
     roxygen2,
     knitr
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr

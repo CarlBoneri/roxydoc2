@@ -1,0 +1,105 @@
+---
+title: "using roxydoc"
+author: "Carl Boneri"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+roxydoc2 is intended as a set of useful global tools for R package authors
+to use when developing packages. It provides a series of wrapper and utility functions
+aimed at supplementing the devtools and roxygen2 packages.
+
+## Implementations
+1) Set global author variables for package docs
+2) Allow for flexible code creation, at the console or in a script with the 
+   focus of documentation being the last thought
+3) Properly format all latext and markdown output strings
+4) Detailed data and output descriptions from actual code outputs
+5) Addition of any copyright notices, or boilerplate to each script
+6) Organization of code even when the author fights it...
+7) Work at the console as much as you'd like, with script compiling running
+   in the background
+
+
+### Setting the global variables for the author 
+```{r, fig.show='hold', comment=NA}
+o <- lapply(list.files("R", pattern = "docr_", full.names=TRUE), source)
+docr.defaults(author = "Joe Shmow", 
+              email = "joe.s@emails.com", 
+              company = "Joe's cRab shack", 
+              website = "https://joeknowsr.com", 
+              github = "JoeShmow")
+```
+
+This will then store the data to the .GlobalEnv as
+```{r, eval=TRUE, comment=NA}
+knitr::kable(docr.get_defaults())
+```
+
+So now when `docr.author` is called:
+```{r, eval=TRUE, comment=NA}
+docr.author()
+```
+
+
+### Documenting datasets
+
+The primary purpose of R is generally to create, or manipulate raw data.
+Often it is time consuming and tedious to properly format what the dataset
+looks like, or contains. These functions aim to ease the burdon.
+
+#### dataframes
+```{r, eval=TRUE, comment=NA, fig.show='hold'}
+raw <- capture.output(docr.describe_df(df_in = mtcars, include_slice = TRUE))
+cat(raw, sep = "\n")
+```
+#### lists
+```{r, eval=TRUE, comment=NA, fig.show='hold'}
+raw2 <- capture.output(docr.list_named(as.list(sapply(as.list(mtcars),`[[`,1))))
+cat(raw2, sep = "\n")
+```
+
+
+### And to add boilerplate to all files:
+```{r, eval=TRUE, comment=NA, fig.show='hold'}
+cat(docr.meta_private(),sep = "\n")
+```
+
+
+### And writing code at the console and prepping for doc/scripts:
+```{r, eval=TRUE, comment=NA, fig.show='hold'}
+
+docr.clean_fun <- function(fun_name = NULL, trim_blanks = FALSE,
+                           rm_comments = FALSE, do_cat = TRUE){
+  deparse(get(fun_name), control = "all") %>% (function(x){
+    x[[1]] <- sprintf("%s <- %s",fun_name, x[[1]])
+
+    if(trim_blanks){
+      x <- x[nchar(x) > 0]
+    }
+
+    if(rm_comments){
+      x <- grep("^[[:space:]]{1,}\\#", x, invert = TRUE, value = TRUE)
+    }
+    if(do_cat){
+      cat(x, sep = "\n")
+    }else {
+      x
+    }
+  })
+}
+this.fun <- function(x = 1, y = 2,...){
+    x * y
+}
+Fun <- docr.clean_fun('this.fun',do_cat = FALSE)
+Args <- docr.param('this.fun')
+Auth <- capture.output(docr.author())
+Meta <- docr.meta_private()
+cat(c(Meta,sprintf("#' %s",docr.fun('this.fun')),
+      Args[[1]], sprintf("#' %s\n", Args[2:length(Args)]), Auth, Fun),sep = "\n")
+
+```
