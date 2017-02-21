@@ -26,7 +26,7 @@ aimed at supplementing the devtools and roxygen2 packages.
 
 
 ### Setting the global variables for the author 
-```{r, fig.show='hold', comment=NA}
+```{r, fig.show='hold', comment=NA, echo=TRUE}
 o <- lapply(list.files("R", pattern = "docr_", full.names=TRUE), source)
 docr.defaults(author = "Joe Shmow", 
               email = "joe.s@emails.com", 
@@ -41,7 +41,7 @@ knitr::kable(docr.get_defaults())
 ```
 
 So now when `docr.author` is called:
-```{r, eval=TRUE, comment=NA}
+```{r, eval=TRUE, comment=NA,echo=TRUE}
 docr.author()
 ```
 
@@ -53,25 +53,25 @@ Often it is time consuming and tedious to properly format what the dataset
 looks like, or contains. These functions aim to ease the burdon.
 
 #### dataframes
-```{r, eval=TRUE, comment=NA, fig.show='hold'}
+```{r, eval=TRUE, comment=NA, fig.show='hold',echo=TRUE}
 raw <- capture.output(docr.describe_df(df_in = mtcars, include_slice = TRUE))
 cat(raw, sep = "\n")
 ```
 #### lists
-```{r, eval=TRUE, comment=NA, fig.show='hold'}
+```{r, eval=TRUE, comment=NA, fig.show='hold',echo=TRUE}
 raw2 <- capture.output(docr.list_named(as.list(sapply(as.list(mtcars),`[[`,1))))
 cat(raw2, sep = "\n")
 ```
 
 
 ### And to add boilerplate to all files:
-```{r, eval=TRUE, comment=NA, fig.show='hold'}
+```{r, eval=TRUE, comment=NA, fig.show='hold',echo=TRUE}
 cat(docr.meta_private(),sep = "\n")
 ```
 
 
 ### And writing code at the console and prepping for doc/scripts:
-```{r, eval=TRUE, comment=NA, fig.show='hold'}
+```{r, eval=TRUE, comment=NA, fig.show='hold',echo=TRUE}
 
 docr.clean_fun <- function(fun_name = NULL, trim_blanks = FALSE,
                            rm_comments = FALSE, do_cat = TRUE){
