@@ -1,3 +1,4 @@
+
 #' Recursively extract the symbolic links to all github resources
 #'
 #'
@@ -41,21 +42,29 @@
 #' @export
 
 git.recursive <- function(x, filter_pat = NULL){
+  library(stringi)
+  library(xml2)
+  library(tools)
+  library(rvest)
+  library(plyr)
+  library(dplyr, quietly = TRUE)
+  library(jsonlite)
+  options('stringsAsFactors' = FALSE)
   ul.ac <- function(x){
     x %>% unlist %>% as.character()
   }
   is.file <- function(x){
-    nchar(file_ext(x)) > 0
+    nchar(tools::file_ext(x)) > 0
   }
 
   fi.get_ext <- function(x){
-    ul.ac(stri_extract_all_regex(x, "\\.([[:alnum:]]+)$", simplify = T))
+    ul.ac(stringi::stri_extract_all_regex(x, "\\.([[:alnum:]]+)$", simplify = T))
   }
 
   fi.get_name <- function(x){
     if(exists('basename')){
       base_name <- function(x){
-        ul.ac(lapply(stri_split_regex(x, "/"), function(i)i[length(i)]))
+        ul.ac(lapply(stringi::stri_split_regex(x, "/"), function(i)i[length(i)]))
       }
       base_name(x)
     }else{
@@ -83,29 +92,45 @@ git.recursive <- function(x, filter_pat = NULL){
          gsub('/blob','',x))
   }
 
-  sets <- html_nodes(html(m.pth(x)), git_dir)
+  # ref_idx <- read_html(m.pth("CarlBoneri/roxydoc2")) %>%
+  #   html_nodes(git_dir) %>% lapply(., function(i){
+  #   data.frame(file_link = m.pth(html_attr(i, "href")),
+  #              name = html_attr(i, "title")) %>%
+  #     mutate(type_of = ifelse(is.file(name), 'file', 'dir')) %>%
+  #     mutate(file_type = fi.get_ext(name),
+  #            file_name = fi.get_name(name))
+  # }) %>% rbind.pages()
 
-  ref_idx <- lapply(sets, function(i){
-    data.frame(file_link = m.pth(html_attr(i, "href")),
-               name = html_attr(i, "title")) %>%
-      mutate(type_of = ifelse(is.file(name), 'file', 'dir')) %>%
-      mutate(file_type = fi.get_ext(name),
-             file_name = fi.get_name(name))
-  }) %>% rbind.pages()
+  #
+  # ref_idx$folder <- ul.ac(
+  #   llply(1:nrow(ref_idx), function(i){
+  #     stri_replace_all_regex(
+  #       ref_idx[i,'file_link'],
+  #       sprintf("%s|/%s",
+  #               "https://github.com/(\\w+)/(\\w+)/blob/master/",
+  #               ref_idx[i, "file_name"]),
+  #       "")
+  #   })
+  # )
+  #
+  #
+  # ref_idx$raw <- ul.ac(llply(ref_idx$file_link, r.pth))
 
-  ref_idx$folder <- ul.ac(
-    llply(1:nrow(ref_idx), function(i){
-      stri_replace_all_regex(
-        ref_idx[i,'file_link'],
-        sprintf("%s|/%s",
-                "https://github.com/(\\w+)/(\\w+)/blob/master/",
-                ref_idx[i, "file_name"]),
-        "")
-    })
-  )
-
-
-  ref_idx$raw <- ul.ac(llply(ref_idx$file_link, r.pth))
+  ref_idx <- read_html(m.pth(x)) %>%
+    html_nodes(git_dir) %>% lapply(., function(i){
+      data.frame(file_link = m.pth(html_attr(i, "href")),
+                 name = html_attr(i, "title")) %>%
+        mutate(type_of = ifelse(is.file(name), 'file', 'dir')) %>%
+        mutate(file_type = fi.get_ext(name),
+               file_name = fi.get_name(name),
+               folder =  stri_replace_all_regex(
+                 file_link,
+                 sprintf("%s|/%s",
+                         "https://github.com/(\\w+)/(\\w+)/blob/master/",
+                         file_name),
+                 ""),
+               raw = r.pth(file_link))
+    })%>% rbind.pages
 
   if(any(ref_idx$type_of == 'dir')){
     old <- ref_idx %>% dplyr::filter(type_of == "file")
