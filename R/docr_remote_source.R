@@ -14,6 +14,11 @@ grab_args <- function() {
 }
 
 
+#' HTTP/HTTPS check
+url.ok <- function(x, ...){
+  identical(status_code(HEAD(x, ...)), 200L)
+}
+
 #' DOCR source files from github repo
 #'
 #' \code{docr.remote_source}
@@ -56,7 +61,7 @@ docr.remote_source <- function(author = NULL, email = NULL, company = NULL,
                            perl = TRUE, value = TRUE,
                            invert = TRUE)
 
-  if(all(unlist(parallel::mclapply(dox_source_files, httr::url_ok)))){
+  if(all(unlist(parallel::mclapply(dox_source_files, url.ok)))){
     o <- lapply(dox_source_files, function(i){
       suppressMessages(
         devtools::source_url(i)
