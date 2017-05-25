@@ -143,7 +143,7 @@ git.recursive <- function(x, filter_pat = NULL){
   }
 
   if(!is.null(filter_pat)){
-    out <- out[grepl(filter_pat, out$name),]
+    out <- out[grepl(filter_pat, out$name, perl = TRUE),]
   }
 
   return(out)
