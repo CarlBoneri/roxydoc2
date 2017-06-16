@@ -14,6 +14,10 @@ docr.meta_private <- function(user_name = NULL,
                               org_name = NULL,
                               org_website = NULL){
 
+  pound <- function(n = NULL, ...){
+    stri_join(rep("#", n), collapse = "")
+  }
+
   the_year <- strftime(Sys.Date(),"%Y")
 
   if(!is.null(getOption('docr'))){
