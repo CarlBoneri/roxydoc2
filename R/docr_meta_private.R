@@ -56,7 +56,7 @@ docr.meta_private <- function(user_name = NULL,
     )
   # The wrap -----
   meta_body <- paste0(pound(2), the_meta)
-  all_meta <- structure(c(pound(80), meta_body, pound(80)), class = "doc_meta")
+  all_meta <- structure(meta_body, class = "doc_meta")
 
 
   # End docr.meta ----
