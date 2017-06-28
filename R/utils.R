@@ -21,3 +21,7 @@ vargs.is_qouted <- function(sym) {
   env <- parent.frame()
   exists(sym, env)
 }
+
+f.me <- function(){
+  'in'
+}
