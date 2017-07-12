@@ -33,16 +33,9 @@
 docr.defaults <- function(author = NULL, email = NULL, company = NULL,
                           meta = NULL, website = NULL, github = NULL){
 
-  docr_opts <- list(
-    author = author,
-    email = email,
-    meta = meta,
-    company = company,
-    website = website,
-    github = github
-  )
+    vrg <- formalArgs(docr.defaults)
+    dfls <- sapply(vrg, function(i)get(i))
+    dfls <- dfls[!mapply(is.null, dfls)]
+    options(docr = as.list(dfls))
 
-  docr_set <- docr_opts[!mapply(is.null,docr_opts)]
-
-  options(docr = docr_set)
 }

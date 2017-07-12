@@ -50,7 +50,7 @@ docr.meta_private <- function(user_name = NULL,
     "",
     " Dissemination of this information or reproduction of this material",
     " is strictly forbidden unless prior written permission is obtained",
-    sprintf(" from %s<%s> on behalf of %s ",
+    sprintf(" from %s <%s> on behalf of %s",
             user_name, user_email, org_name),
     " and its subsidiaries; or any legal divestiture thereof."
     )
