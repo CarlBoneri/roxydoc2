@@ -22,7 +22,4 @@ vargs.is_qouted <- function(sym) {
   exists(sym, env)
 }
 
-f.me <- function(){
-  'in'
-}
 
