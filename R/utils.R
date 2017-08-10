@@ -23,3 +23,22 @@ vargs.is_qouted <- function(sym) {
 }
 
 
+#' A wrapper to make everything silent
+#'
+#' \code{shh}
+#'
+#'
+shh <- function(...){
+  invisible(
+    suppressWarnings(
+      suppressPackageStartupMessages(
+        suppressMessages(
+          ...
+        )
+      )
+    )
+  )
+}
+
+
+
