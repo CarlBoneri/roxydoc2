@@ -43,4 +43,3 @@ git.recursive('ropensci/magick', filter_pat = "\\\\.R$") \%>\%
 
 
 }
-

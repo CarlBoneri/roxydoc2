@@ -27,6 +27,7 @@ aimed at supplementing the devtools and roxygen2 packages.
 
 ### Setting the global variables for the author 
 ```{r, fig.show='hold', comment=NA, echo=TRUE}
+source("~/roxydoc2/R/docr_defaults.R")
 o <- lapply(list.files("R", pattern = "docr_", full.names=TRUE), source)
 docr.defaults(author = "Joe Shmow", 
               email = "joe.s@emails.com", 
@@ -37,11 +38,13 @@ docr.defaults(author = "Joe Shmow",
 
 This will then store the data to the .GlobalEnv as
 ```{r, eval=TRUE, comment=NA}
+source("~/roxydoc2/R/docr_defaults.R")
 knitr::kable(docr.get_defaults())
 ```
 
 So now when `docr.author` is called:
 ```{r, eval=TRUE, comment=NA,echo=TRUE}
+source("~/roxydoc2/R/docr_author.R")
 docr.author()
 ```
 
@@ -54,11 +57,13 @@ looks like, or contains. These functions aim to ease the burdon.
 
 #### dataframes
 ```{r, eval=TRUE, comment=NA, fig.show='hold',echo=TRUE}
+source("~/roxydoc2/R/docr_describe_df.R")
 raw <- capture.output(docr.describe_df(df_in = mtcars, include_slice = TRUE))
 cat(raw, sep = "\n")
 ```
 #### lists
 ```{r, eval=TRUE, comment=NA, fig.show='hold',echo=TRUE}
+source("~/roxydoc2/R/docr_list_named.R")
 raw2 <- capture.output(docr.list_named(as.list(sapply(as.list(mtcars),`[[`,1))))
 cat(raw2, sep = "\n")
 ```
@@ -66,6 +71,7 @@ cat(raw2, sep = "\n")
 
 ### And to add boilerplate to all files:
 ```{r, eval=TRUE, comment=NA, fig.show='hold',echo=TRUE}
+source("~/roxydoc2/R/docr_meta_private.R")
 cat(docr.meta_private(),sep = "\n")
 ```
 

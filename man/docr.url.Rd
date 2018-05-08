@@ -9,4 +9,3 @@ docr.url(url)
 \description{
 \code{docr.url}
 }
-

@@ -9,4 +9,3 @@ docr.freetype(file_name = NULL, assign_as = NULL)
 \description{
 Move all docr files into the working projects revdep folder
 }
-

@@ -19,19 +19,19 @@ docr.fun(...)
 
 
 }
-\author{
-Carl S.A. Boneri, \email{carl.boneri@whyles.com}
-}
 \seealso{
-Other Documentation.functions: \code{\link{docr.author}},
+Other Documentation functions: \code{\link{docr.author}},
   \code{\link{docr.clean_fun}},
   \code{\link{docr.defaults_prompt}},
   \code{\link{docr.defaults}},
   \code{\link{docr.describe_df}},
   \code{\link{docr.example_df}}, \code{\link{docr.family}},
   \code{\link{docr.has_defaults}},
+  \code{\link{docr.install_r_only}},
   \code{\link{docr.make_license}},
   \code{\link{docr.meta_private}},
   \code{\link{docr.meta_public}}, \code{\link{docr.param}}
 }
-
+\author{
+Carl S.A. Boneri, \email{carl.boneri@whyles.com}
+}

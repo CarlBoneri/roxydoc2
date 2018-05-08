@@ -2,6 +2,10 @@
 #
 #
 #
+#' Build a directory structure
+#'
+#' \code{dirs.setup_shell}
+#'
 #' @examples
 #' set_scaffold <- list(
 #'  inst = list(

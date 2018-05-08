@@ -29,4 +29,3 @@ docr.get_defaults(field = NULL)
 \description{
 \code{docr.get_defaults}
 }
-

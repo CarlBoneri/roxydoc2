@@ -27,4 +27,3 @@ my_text <- paste0(collapse=" ",
 # #'   in the form of \\\\code{alist}
 
 }
-

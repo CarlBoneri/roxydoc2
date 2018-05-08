@@ -39,4 +39,3 @@ my_text <- paste0(collapse=" ",
 
 
 }
-

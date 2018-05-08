@@ -17,14 +17,15 @@ logical
 \code{docr.has_defaults}
 }
 \seealso{
-Other Documentation.functions: \code{\link{docr.author}},
+Other Documentation functions: \code{\link{docr.author}},
   \code{\link{docr.clean_fun}},
   \code{\link{docr.defaults_prompt}},
   \code{\link{docr.defaults}},
   \code{\link{docr.describe_df}},
   \code{\link{docr.example_df}}, \code{\link{docr.family}},
-  \code{\link{docr.fun}}, \code{\link{docr.make_license}},
+  \code{\link{docr.fun}},
+  \code{\link{docr.install_r_only}},
+  \code{\link{docr.make_license}},
   \code{\link{docr.meta_private}},
   \code{\link{docr.meta_public}}, \code{\link{docr.param}}
 }
-
