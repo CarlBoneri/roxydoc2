@@ -93,6 +93,6 @@ docr.package_description <- function(package = NULL, add_license = TRUE, ...){
 #'
 #' @export
 
-docr.new_package <- function(package = NULL, add_vignettes = TRUE, ){
+docr.new_package <- function(package = NULL, add_vignettes = TRUE){
   devtools:::write_dcf()
 }
